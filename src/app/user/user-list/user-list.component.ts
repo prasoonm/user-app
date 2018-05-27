@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../User';
 import {UserService} from '../user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -12,7 +13,7 @@ export class UserListComponent implements OnInit {
 
   private users: User[];
 
-  constructor(private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     this.getAllUsers();
@@ -27,5 +28,19 @@ export class UserListComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  redirectToNewUserPage() {
+    this.router.navigate(['/user/create']);
+  }
+
+  editUserPage(user: User) {
+    if (user) {
+      this.router.navigate(['/user/edit', user.id]);
+    }
+  }
+
+  deleteUser(user: User) {
+    console.log('Delete user.');
   }
 }
