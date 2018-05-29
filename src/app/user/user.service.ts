@@ -18,4 +18,8 @@ export class UserService {
     // add error scenario as well
   }
 
+  saveUser(user: User): Observable<User> {
+    return this.http.post(this.apiUrl, user)
+      .catch((err: any) => Observable.throw(err.json()));
+  }
 }
